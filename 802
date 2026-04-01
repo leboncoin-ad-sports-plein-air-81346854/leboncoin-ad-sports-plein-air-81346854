@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>🐟</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(#001f3f, #0074D9);
+  }
+
+  .fish {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    background: orange;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(0deg);
+    animation: swim linear infinite;
+  }
+
+  .fish::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 8px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid orange;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+  }
+
+  @keyframes swim {
+    0% {
+      transform: translateX(-100px) scaleX(1);
+    }
+    50% {
+      transform: translateX(110vw) scaleX(1);
+    }
+    51% {
+      transform: translateX(110vw) scaleX(-1);
+    }
+    100% {
+      transform: translateX(-100px) scaleX(-1);
+    }
+  }
+</style>
+</head>
+<body>
+
+<script>
+  function createFish() {
+    const fish = document.createElement('div');
+    fish.classList.add('fish');
+
+    fish.style.top = Math.random() * window.innerHeight + 'px';
+    fish.style.animationDuration = (5 + Math.random() * 10) + 's';
+    fish.style.background = `hsl(${Math.random()*360},70%,60%)`;
+
+    document.body.appendChild(fish);
+  }
+
+  for (let i = 0; i < 15; i++) {
+    createFish();
+  }
+</script>
+
+</body>
+</html>
