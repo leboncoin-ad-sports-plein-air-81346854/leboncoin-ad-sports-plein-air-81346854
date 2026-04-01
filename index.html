@@ -12,7 +12,7 @@
     font-family: Arial;
   }
 
-  /* Texte poisson d'avril partout */
+  /* TEXTE FOND */
   .bg-text {
     position: absolute;
     width: 100%;
@@ -27,46 +27,59 @@
     transform: rotate(-10deg);
   }
 
-  /* GROS POISSON */
-  .big-fish {
+  /* GROS TEXTE */
+  #title {
     position: absolute;
-    width: 180px;
-    height: 90px;
-    background: orange;
-    border-radius: 50% 50% 50% 0;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    font-size: 80px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 20px rgba(0,0,0,0.7);
+    pointer-events: none;
+  }
+
+  /* SIGNATURE */
+  #signature {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 18px;
+    color: white;
+    opacity: 0.8;
+    font-style: italic;
+    text-shadow: 0 0 10px black;
+    pointer-events: none;
+  }
+
+  /* POISSON IMAGE */
+  #fish {
+    position: absolute;
+    width: 220px;
     cursor: pointer;
     transition: transform 0.2s;
   }
 
-  .big-fish::after {
-    content: '';
-    position: absolute;
-    right: -20px;
-    top: 25px;
-    border-left: 25px solid orange;
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-  }
-
-  /* animation quand on clique */
+  /* animation */
   .wiggle {
     animation: wiggle 0.3s infinite;
   }
 
   @keyframes wiggle {
     0% { transform: rotate(0deg); }
-    25% { transform: rotate(5deg); }
-    50% { transform: rotate(-5deg); }
-    75% { transform: rotate(5deg); }
+    25% { transform: rotate(6deg); }
+    50% { transform: rotate(-6deg); }
+    75% { transform: rotate(6deg); }
     100% { transform: rotate(0deg); }
   }
 
   /* écailles */
   .scale {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background: rgba(255,255,255,0.8);
+    width: 8px;
+    height: 8px;
+    background: white;
     border-radius: 50%;
     pointer-events: none;
     animation: fall 2s linear forwards;
@@ -74,7 +87,7 @@
 
   @keyframes fall {
     0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(200px) scale(0.3); opacity: 0; }
+    100% { transform: translateY(200px) scale(0.2); opacity: 0; }
   }
 
 </style>
@@ -84,10 +97,13 @@
 
 <div class="bg-text" id="bg"></div>
 
-<div class="big-fish" id="fish"></div>
+<div id="title">🐟 POISSON D'AVRIL 🐟</div>
+<div id="signature">By Marion</div>
+
+<img id="fish" src="https://i.ibb.co/bRgZqsyZ/Poisson-PNG-Clipart-Poisson-PNG-Poisson-PNG-Animal-PNG-et-vecteur-pour-t-l-chargement-gratuit.jpg">
 
 <script>
-/* --- texte fond --- */
+/* TEXTE FOND */
 const bg = document.getElementById("bg");
 for (let i = 0; i < 80; i++) {
   const span = document.createElement("div");
@@ -95,29 +111,31 @@ for (let i = 0; i < 80; i++) {
   bg.appendChild(span);
 }
 
-/* --- poisson --- */
+/* POISSON */
 const fish = document.getElementById("fish");
 
+/* position initiale */
 fish.style.top = "200px";
 fish.style.left = "200px";
 
-/* déplacer poisson avec la souris */
+/* suit la souris */
 document.addEventListener("mousemove", (e) => {
-  fish.style.left = (e.clientX - 90) + "px";
-  fish.style.top = (e.clientY - 45) + "px";
+  fish.style.left = (e.clientX - 110) + "px";
+  fish.style.top = (e.clientY - 60) + "px";
 });
 
 /* clic = wiggle + écailles */
 fish.addEventListener("click", () => {
   fish.classList.add("wiggle");
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 25; i++) {
     const s = document.createElement("div");
     s.classList.add("scale");
-    s.style.left = (fish.offsetLeft + 80 + Math.random()*40) + "px";
-    s.style.top = (fish.offsetTop + 40 + Math.random()*40) + "px";
-    document.body.appendChild(s);
 
+    s.style.left = (fish.offsetLeft + 100 + Math.random()*40) + "px";
+    s.style.top = (fish.offsetTop + 50 + Math.random()*40) + "px";
+
+    document.body.appendChild(s);
     setTimeout(() => s.remove(), 2000);
   }
 
